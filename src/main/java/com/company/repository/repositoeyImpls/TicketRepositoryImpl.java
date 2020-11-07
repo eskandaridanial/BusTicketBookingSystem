@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
-public class TicketRepositoryImpl implements TicketRepository<Ticket> {
+public class TicketRepositoryImpl implements TicketRepository<Ticket , Long> {
 
     private final EntityManager entityManager;
 
@@ -51,5 +51,10 @@ public class TicketRepositoryImpl implements TicketRepository<Ticket> {
                 entityManager.getTransaction().commit();
             }
         }
+    }
+
+    @Override
+    public Ticket findById(Long id) {
+        return entityManager.find(Ticket.class , id);
     }
 }

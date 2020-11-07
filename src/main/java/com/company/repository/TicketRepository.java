@@ -4,7 +4,7 @@ import com.company.entity.Ticket;
 
 import java.util.List;
 
-public interface TicketRepository<E> {
+public interface TicketRepository<E , PK> {
 
     void addTicket(E e);
 
@@ -15,4 +15,6 @@ public interface TicketRepository<E> {
     void removeExpired();
 
     void setIsExpired(List<E> es);
+
+    E findById(PK id);
 }
