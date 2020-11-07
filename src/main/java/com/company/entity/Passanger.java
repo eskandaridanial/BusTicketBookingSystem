@@ -17,7 +17,7 @@ public class Passanger {
     private String salt;
     @Column(nullable = false , updatable = false)
     private String gender;
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY , mappedBy = "passanger")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Ticket> tickets;
 
 

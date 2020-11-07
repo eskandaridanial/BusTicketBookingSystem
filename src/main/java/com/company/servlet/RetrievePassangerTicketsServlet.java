@@ -22,7 +22,7 @@ public class RetrievePassangerTicketsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setAttribute("list" , passangerRepository.retrievePassangerTickets(passangerRepository.findByUsername(request.getParameter((String) request.getSession(false).getAttribute("username")))));
+            request.setAttribute("list" , passangerRepository.retrievePassangerTickets(passangerRepository.findByUsername((String) request.getSession(false).getAttribute("username"))));
             request.getRequestDispatcher("passanger_ticket_list.jsp").forward(request , response);
         } catch (RollbackException e){
             request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");

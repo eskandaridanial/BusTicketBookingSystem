@@ -27,7 +27,7 @@
                 <th><%=ticket.getId()%></th>
                 <th>
                     <form method="get" action="your_ticket">
-                        <%=request.setAttribute("ticket_id" , ticket.getId())%>
+                        <input type="hidden" name="ticket_id" value="<%=ticket.getId()%>">
                         <button type="submit">مشاهده بلیط</button>
                     </form>
                 </th>
