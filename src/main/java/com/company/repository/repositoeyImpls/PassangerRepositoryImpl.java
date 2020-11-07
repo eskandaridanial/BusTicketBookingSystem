@@ -38,7 +38,6 @@ public class PassangerRepositoryImpl implements PassangerRepository<Passanger> {
     public void cancelTicket(Passanger passanger , Ticket ticket) {
         passanger.removeTicket(ticket);
         entityManager.getTransaction().begin();
-        entityManager.remove(ticket);
         entityManager.merge(passanger);
         entityManager.getTransaction().commit();
     }

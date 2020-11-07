@@ -47,6 +47,14 @@
                 <th>شناسه سفر</th>
                 <th><%=ticket.getTravelNumber()%></th>
             </tr>
+            <tr>
+                <th>
+                    <form method="post" action="cancel_ticket">
+                        <input type="hidden" name="ticket_id" value="<%=ticket.getId()%>">
+                        <button type="submit">لغو بلیط</button>
+                    </form>
+                </th>
+            </tr>
         </tbody>
     </table>
 </body>
