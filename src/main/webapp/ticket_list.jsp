@@ -29,7 +29,7 @@
                 <th><%=ticket.getTravelNumber()%></th>
                 <th><%=ticket.getTime()%></th>
                 <th>
-                    <form method="get" action="buy_ticket">
+                    <form method="post" action="buy_ticket">
                         <input type="hidden" name="ticket_id" value="<%=ticket.getId()%>">
                         <button type="submit">خرید</button>
                     </form>
