@@ -57,11 +57,4 @@ public class TicketRepositoryImpl implements TicketRepository<Ticket , Long> {
     public Ticket findById(Long id) {
         return entityManager.find(Ticket.class , id);
     }
-
-    @Override
-    public void remove(Ticket ticket) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(ticket);
-        entityManager.getTransaction().commit();
-    }
 }

@@ -6,7 +6,9 @@
 <body>
     <table>
         <thead>
-        
+            <tr>
+                <th></th>
+            </tr>
         </thead>
     </table>
 </body>

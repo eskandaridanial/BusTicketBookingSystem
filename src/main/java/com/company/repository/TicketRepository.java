@@ -17,6 +17,4 @@ public interface TicketRepository<E , PK> {
     void setIsExpired(List<E> es);
 
     E findById(PK id);
-
-    void remove(E e);
 }
