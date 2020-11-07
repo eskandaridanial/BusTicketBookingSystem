@@ -10,14 +10,14 @@ import java.util.stream.Collectors;
 public class TicketSearchFilter {
 
     private List<Ticket> getTicketsWhereRouteIs(List<Ticket> tickets , Route route){
-        return tickets.stream().filter(ticket -> ticket.getRoute().equals(route)).collect(Collectors.toList());
+        return tickets.stream().filter(ticket -> ticket.getRoute().getId().equals(route.getId())).collect(Collectors.toList());
     }
 
     private List<Ticket> getTicketsWhereDateIsAfter(List<Ticket> tickets , Date date){
         return tickets.stream().filter(ticket -> ticket.getDate().after(date)).collect(Collectors.toList());
     }
 
-    private List<Ticket> combinator(List<Ticket> allTickets , Route route , Date date){
+    public List<Ticket> combinator(List<Ticket> allTickets , Route route , Date date){
         return getTicketsWhereDateIsAfter(getTicketsWhereRouteIs(allTickets , route) , date);
     }
 }
