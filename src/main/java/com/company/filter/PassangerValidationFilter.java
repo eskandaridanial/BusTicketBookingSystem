@@ -29,6 +29,6 @@ public class PassangerValidationFilter implements Filter {
     }
 
     private Boolean isPasswordValid(String password){
-        return password.matches("^(?=.*\\d).{4,8}$");
+        return password.length() > 4;
     }
 }

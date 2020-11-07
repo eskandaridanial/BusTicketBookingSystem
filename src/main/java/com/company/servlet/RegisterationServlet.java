@@ -27,7 +27,8 @@ public class RegisterationServlet extends HttpServlet {
             request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");
             request.getRequestDispatcher("error.jsp").forward(request , response);
         } catch (Exception e){
-
+            request.setAttribute("error", "Something Went Wrong , Please Try Again...");
+            request.getRequestDispatcher("error.jsp").forward(request , response);
         }
     }
 

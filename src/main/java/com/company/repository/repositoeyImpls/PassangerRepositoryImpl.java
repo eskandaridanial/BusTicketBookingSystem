@@ -26,7 +26,7 @@ public class PassangerRepositoryImpl implements PassangerRepository<Passanger> {
 
     @Override
     public Passanger login(Passanger passanger , String password) {
-        return entityManager.createQuery("select p from Passanger p where p.username = :username and p.password = :password" , Passanger.class).setParameter("username" , passanger.getUsername()).setParameter("password" , hashPassword(password , passanger.getSalt())).getSingleResult();
+        return entityManager.createQuery("select p from Passanger p where p.username = :username and p.password = :password" , Passanger.class).setParameter("username" , passanger.getUsername()).setParameter("password" , password).getSingleResult();
     }
 
     @Override
@@ -56,9 +56,5 @@ public class PassangerRepositoryImpl implements PassangerRepository<Passanger> {
     @Override
     public Passanger findByUsername(String username) {
         return entityManager.createQuery("select p from Passanger p where p.username = :username" , Passanger.class).setParameter("username" , username).getSingleResult();
-    }
-
-    private String hashPassword(String password , String salt){
-        return new HashPassword().hashValue(password , salt);
     }
 }
