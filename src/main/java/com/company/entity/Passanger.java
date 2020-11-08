@@ -1,5 +1,7 @@
 package com.company.entity;
 
+import com.company.authService.entity.PassangerAuthToken;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class Passanger {
     private String gender;
     @OneToMany(fetch = FetchType.LAZY)
     private List<Ticket> tickets;
+    @OneToOne(fetch = FetchType.LAZY)
+    private PassangerAuthToken token;
 
 
     public Passanger() {
@@ -65,5 +69,13 @@ public class Passanger {
 
     public void removeTicket(Ticket ticket){
         this.tickets.remove(ticket);
+    }
+
+    public PassangerAuthToken getToken() {
+        return token;
+    }
+
+    public void setToken(PassangerAuthToken token) {
+        this.token = token;
     }
 }

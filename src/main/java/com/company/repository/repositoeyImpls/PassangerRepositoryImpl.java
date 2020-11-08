@@ -57,4 +57,12 @@ public class PassangerRepositoryImpl implements PassangerRepository<Passanger> {
     public Passanger findByUsername(String username) {
         return entityManager.createQuery("select p from Passanger p where p.username = :username" , Passanger.class).setParameter("username" , username).getSingleResult();
     }
+
+    public void nullToken(Passanger passanger){
+        passanger.setToken(null);
+        entityManager.getTransaction().begin();
+        entityManager.merge(passanger);
+        entityManager.getTransaction().commit();
+
+    }
 }

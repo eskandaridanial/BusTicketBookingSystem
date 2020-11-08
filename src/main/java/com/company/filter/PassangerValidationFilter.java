@@ -25,10 +25,10 @@ public class PassangerValidationFilter implements Filter {
     }
 
     private Boolean isUsernameValid(String username){
-        return username.length() > 4;
+        return username.length() >= 4;
     }
 
     private Boolean isPasswordValid(String password){
-        return password.length() > 4;
+        return password.length() >= 4;
     }
 }

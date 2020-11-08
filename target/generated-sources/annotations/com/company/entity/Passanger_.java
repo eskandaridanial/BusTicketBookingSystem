@@ -1,5 +1,6 @@
 package com.company.entity;
 
+import com.company.authService.entity.PassangerAuthToken;
 import javax.annotation.processing.Generated;
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
@@ -15,6 +16,7 @@ public abstract class Passanger_ {
 	public static volatile SingularAttribute<Passanger, String> gender;
 	public static volatile SingularAttribute<Passanger, Long> id;
 	public static volatile SingularAttribute<Passanger, String> username;
+	public static volatile SingularAttribute<Passanger, PassangerAuthToken> token;
 
 	public static final String PASSWORD = "password";
 	public static final String SALT = "salt";
@@ -22,6 +24,7 @@ public abstract class Passanger_ {
 	public static final String GENDER = "gender";
 	public static final String ID = "id";
 	public static final String USERNAME = "username";
+	public static final String TOKEN = "token";
 
 }
 
