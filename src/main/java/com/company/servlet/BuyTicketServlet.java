@@ -3,6 +3,8 @@ package com.company.servlet;
 import com.company.repository.repositoeyImpls.PassangerRepositoryImpl;
 import com.company.repository.repositoeyImpls.TicketRepositoryImpl;
 
+import javax.persistence.NoResultException;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +24,18 @@ public class BuyTicketServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
-        passangerRepository.buyTicket(passangerRepository.findByUsername((String) request.getSession().getAttribute("username")) , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
-        request.getRequestDispatcher("home.jsp").forward(request , response);
+        try {
+            passangerRepository.buyTicket(passangerRepository.findByUsername((String) request.getSession().getAttribute("username")) , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
+            request.getRequestDispatcher("home.jsp").forward(request , response);
+        } catch (RollbackException e){
+            request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");
+            request.getRequestDispatcher("error.jsp").forward(request , response);
+        } catch (NullPointerException | NoResultException e){
+            request.setAttribute("error", "No Ticket Found , Please Try Again...");
+            request.getRequestDispatcher("error.jsp").forward(request , response);
+        } catch (Exception e){
+            request.setAttribute("error", "Something Went Wrong , Please Try Again...");
+            request.getRequestDispatcher("error.jsp").forward(request , response);
+        }
     }
 }
