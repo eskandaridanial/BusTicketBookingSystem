@@ -27,8 +27,7 @@ public class CancelTicketServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         try {
-            passangerRepository.cancelTicket(getPassanger(request) , getTicket(request));
-            ticketRepository.remove(getTicket(request));
+            passangerRepository.cancelTicket(passangerRepository.findByUsername((String) request.getSession(false).getAttribute("username")) , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
             request.getRequestDispatcher("home.jsp").forward(request , response);
         } catch (RollbackException e){
             request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");
@@ -40,13 +39,5 @@ public class CancelTicketServlet extends HttpServlet {
             request.setAttribute("error", "Something Went Wrong , Please Try Again...");
             request.getRequestDispatcher("error.jsp").forward(request , response);
         }
-    }
-
-    private Passanger getPassanger(HttpServletRequest request){
-        return passangerRepository.findByUsername((String) request.getSession().getAttribute("username"));
-    }
-
-    private Ticket getTicket(HttpServletRequest request){
-        return ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id")));
     }
 }

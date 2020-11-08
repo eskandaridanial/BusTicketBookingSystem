@@ -78,4 +78,8 @@ public class Passanger {
     public void setToken(PassangerAuthToken token) {
         this.token = token;
     }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
+    }
 }

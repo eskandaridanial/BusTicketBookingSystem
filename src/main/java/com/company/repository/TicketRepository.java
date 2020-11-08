@@ -12,9 +12,7 @@ public interface TicketRepository<E , PK> {
 
     Ticket showTicket(List<E> es , E e);
 
-    void removeExpired();
-
-    void setIsExpired(List<E> es);
+    void removeExpired(List<E> es);
 
     E findById(PK id);
 

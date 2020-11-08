@@ -17,17 +17,15 @@ import java.util.List;
 @WebServlet(value = "/your_ticket")
 public class ShowTicketServlet extends HttpServlet {
     private final TicketRepositoryImpl ticketRepository;
-    private final PassangerRepositoryImpl passangerRepository;
 
     public ShowTicketServlet(){
         ticketRepository = new TicketRepositoryImpl();
-        passangerRepository = new PassangerRepositoryImpl();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setAttribute("ticket" , ticketRepository.showTicket(ticketRepository.showAvailableTickets() , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id")))));
+            request.setAttribute("ticket" , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
             request.getRequestDispatcher("passanger_ticket.jsp").forward(request , response);
         } catch (RollbackException e){
             request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");

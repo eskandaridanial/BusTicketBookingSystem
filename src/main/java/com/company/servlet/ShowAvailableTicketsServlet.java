@@ -1,6 +1,6 @@
 package com.company.servlet;
 
-import com.company.conversionService.DateConversion;
+import com.company.conversionService.ConversionFromString;
 import com.company.entity.Route;
 import com.company.entity.Ticket;
 import com.company.repository.repositoeyImpls.RouteRepositoryImpl;
@@ -22,20 +22,21 @@ import java.util.List;
 public class ShowAvailableTicketsServlet extends HttpServlet {
     private final TicketRepositoryImpl ticketRepository;
     private final RouteRepositoryImpl routeRepository;
-    private final DateConversion dateConversion;
+    private final ConversionFromString conversionFromString;
     private final TicketSearchFilter ticketSearchFilter;
 
     public ShowAvailableTicketsServlet(){
         ticketRepository = new TicketRepositoryImpl();
         routeRepository = new RouteRepositoryImpl();
-        dateConversion = new DateConversion();
+        conversionFromString = new ConversionFromString();
         ticketSearchFilter = new TicketSearchFilter();
     }
 
     @Override
     protected void doGet(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         try {
-            request.setAttribute("list" , ticketSearchFilter.combinator(getTickets() , findRoute(request) , dateConversion.dateToString(request.getParameter("date"))));
+            prerequirities();
+            request.setAttribute("list" , ticketSearchFilter.combinator(getTickets() , findRoute(request) , conversionFromString.stringToDate(request.getParameter("date"))));
             request.getRequestDispatcher("ticket_list.jsp").forward(request , response);
         } catch (ParseException e) {
             request.setAttribute("error", "Can Not Parse The Date Format , Please Try Again...");
@@ -61,7 +62,6 @@ public class ShowAvailableTicketsServlet extends HttpServlet {
     }
 
     private void prerequirities(){
-        ticketRepository.setIsExpired(getTickets());
-        ticketRepository.removeExpired();
+        ticketRepository.removeExpired(getTickets());
     }
 }

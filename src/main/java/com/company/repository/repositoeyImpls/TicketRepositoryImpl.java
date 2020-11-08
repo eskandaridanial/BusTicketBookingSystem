@@ -7,6 +7,7 @@ import com.company.repository.TicketRepository;
 import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TicketRepositoryImpl implements TicketRepository<Ticket , Long> {
 
@@ -25,7 +26,8 @@ public class TicketRepositoryImpl implements TicketRepository<Ticket , Long> {
 
     @Override
     public List<Ticket> showAvailableTickets() {
-        return entityManager.createQuery("select t from Ticket t where t.isSold = :false" , Ticket.class).setParameter("false" , false).getResultList();
+        return entityManager.createQuery("select t from Ticket t" , Ticket.class).getResultList()
+                .stream().filter(ticket -> ticket.getPassanger() == null).collect(Collectors.toList());
     }
 
     @Override
@@ -37,17 +39,11 @@ public class TicketRepositoryImpl implements TicketRepository<Ticket , Long> {
     }
 
     @Override
-    public void removeExpired() {
-        entityManager.createQuery("delete t from Ticket t where t.isExpired = :true" , Ticket.class).setParameter("true" , true);
-    }
-
-    @Override
-    public void setIsExpired(List<Ticket> tickets) {
+    public void removeExpired(List<Ticket> tickets) {
         for (Ticket ticket : tickets){
             if (ticket.getDate().before(new Date())){
-                ticket.setExpired(true);
                 entityManager.getTransaction().begin();
-                entityManager.merge(ticket);
+                entityManager.remove(ticket);
                 entityManager.getTransaction().commit();
             }
         }

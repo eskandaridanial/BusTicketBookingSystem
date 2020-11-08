@@ -11,7 +11,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "travel_time" , nullable = false , updatable = false)
-    private LocalTime time;
+    private String time;
     @Column(name = "travel_date" , nullable = false , updatable = false)
     private Date date;
     @Column(name = "travel_number" , unique = true , updatable = false)
@@ -21,20 +21,18 @@ public class Ticket {
     private Passanger passanger;
     @ManyToOne(fetch = FetchType.LAZY)
     private Route route;
-    @Column(name = "is_expired" , nullable = false , updatable = false)
-    private Boolean isExpired;
     @Column(name = "is_sold" , nullable = false , updatable = false)
     private Boolean isSold;
 
     public Ticket() {
     }
 
-    public Ticket(LocalTime time, Date date, Route route, Boolean isExpired , Boolean isSold) {
+    public Ticket(String time, Date date, Route route, Boolean isSold , Long travelNumber) {
         this.time = time;
         this.date = date;
         this.route = route;
-        this.isExpired = isExpired;
         this.isSold = isSold;
+        this.travelNumber = travelNumber;
     }
 
 
@@ -47,11 +45,11 @@ public class Ticket {
         this.id = id;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -85,14 +83,6 @@ public class Ticket {
 
     public void setRoute(Route route) {
         this.route = route;
-    }
-
-    public Boolean getExpired() {
-        return isExpired;
-    }
-
-    public void setExpired(Boolean expired) {
-        isExpired = expired;
     }
 
     public Boolean getSold() {

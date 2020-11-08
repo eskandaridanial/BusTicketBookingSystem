@@ -36,20 +36,21 @@ public class PassangerRepositoryImpl implements PassangerRepository<Passanger> {
 
     @Override
     public void cancelTicket(Passanger passanger , Ticket ticket) {
+        ticket.setPassanger(null);
         passanger.removeTicket(ticket);
         entityManager.getTransaction().begin();
         entityManager.merge(passanger);
+        entityManager.merge(ticket);
         entityManager.getTransaction().commit();
     }
 
     @Override
     public void buyTicket(Passanger passanger , Ticket ticket) {
-        ticket.setSold(true);
         ticket.setPassanger(passanger);
         passanger.addTicket(ticket);
         entityManager.getTransaction().begin();
-        entityManager.merge(ticket);
         entityManager.merge(passanger);
+        entityManager.merge(ticket);
         entityManager.getTransaction().commit();
     }
 

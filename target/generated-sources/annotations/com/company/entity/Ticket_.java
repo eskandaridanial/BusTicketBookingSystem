@@ -1,6 +1,5 @@
 package com.company.entity;
 
-import java.time.LocalTime;
 import java.util.Date;
 import javax.annotation.processing.Generated;
 import javax.persistence.metamodel.SingularAttribute;
@@ -16,8 +15,7 @@ public abstract class Ticket_ {
 	public static volatile SingularAttribute<Ticket, Boolean> isSold;
 	public static volatile SingularAttribute<Ticket, Long> travelNumber;
 	public static volatile SingularAttribute<Ticket, Long> id;
-	public static volatile SingularAttribute<Ticket, LocalTime> time;
-	public static volatile SingularAttribute<Ticket, Boolean> isExpired;
+	public static volatile SingularAttribute<Ticket, String> time;
 
 	public static final String DATE = "date";
 	public static final String PASSANGER = "passanger";
@@ -26,7 +24,6 @@ public abstract class Ticket_ {
 	public static final String TRAVEL_NUMBER = "travelNumber";
 	public static final String ID = "id";
 	public static final String TIME = "time";
-	public static final String IS_EXPIRED = "isExpired";
 
 }
 

@@ -22,7 +22,7 @@ public class RegisterationServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             passangerRepository.register(createPassanger(request));
-            request.getRequestDispatcher("index.jsp").forward(request , response);
+            request.getRequestDispatcher("main.html").forward(request , response);
         } catch (RollbackException e){
             request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");
             request.getRequestDispatcher("error.jsp").forward(request , response);
