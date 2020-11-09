@@ -1,5 +1,6 @@
 package com.company.servlet;
 
+import com.company.entity.Passanger;
 import com.company.repository.repositoeyImpls.PassangerRepositoryImpl;
 import com.company.repository.repositoeyImpls.TicketRepositoryImpl;
 
@@ -25,8 +26,11 @@ public class BuyTicketServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         try {
-            passangerRepository.buyTicket(passangerRepository.findByUsername((String) request.getSession().getAttribute("username")) , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
-            request.getRequestDispatcher("home.jsp").forward(request , response);
+            Passanger passanger = passangerRepository.findByUsername((String) request.getSession().getAttribute("username"));
+            passangerRepository.buyTicket(passanger , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
+            request.setAttribute("gender" , passanger.getGender());
+            request.setAttribute("username" , passanger.getUsername());
+            request.getRequestDispatcher("green_state.jsp").forward(request , response);
         } catch (RollbackException e){
             request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");
             request.getRequestDispatcher("error.jsp").forward(request , response);
