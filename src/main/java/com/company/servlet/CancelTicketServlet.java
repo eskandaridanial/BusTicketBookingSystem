@@ -27,7 +27,7 @@ public class CancelTicketServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         try {
-            passangerRepository.cancelTicket(passangerRepository.findByUsername((String) request.getSession(false).getAttribute("username")) , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
+            passangerRepository.cancelTicket((String) request.getSession().getAttribute("username") , Long.valueOf(request.getParameter("ticket_id")));
             request.getRequestDispatcher("home.jsp").forward(request , response);
         } catch (RollbackException e){
             request.setAttribute("error", "Error While Commiting Transaction , Please Try Again...");

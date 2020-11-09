@@ -12,9 +12,9 @@ public interface PassangerRepository<E> {
 
     List<Ticket> retrievePassangerTickets(E e);
 
-    void cancelTicket(E e , Ticket ticket);
+    void cancelTicket(String username , Long id);
 
-    void buyTicket(E e , Ticket ticket);
+    void buyTicket(String username , Long id);
 
     E findByUsername(String username);
 }

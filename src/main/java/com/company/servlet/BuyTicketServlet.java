@@ -26,8 +26,9 @@ public class BuyTicketServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException, IOException {
         try {
-            Passanger passanger = passangerRepository.findByUsername((String) request.getSession().getAttribute("username"));
-            passangerRepository.buyTicket(passanger , ticketRepository.findById(Long.valueOf(request.getParameter("ticket_id"))));
+            String username = (String) request.getSession().getAttribute("username");
+            Passanger passanger = passangerRepository.findByUsername(username);
+            passangerRepository.buyTicket(username , Long.valueOf(request.getParameter("ticket_id")));
             request.setAttribute("gender" , passanger.getGender());
             request.setAttribute("username" , passanger.getUsername());
             request.getRequestDispatcher("green_state.jsp").forward(request , response);
