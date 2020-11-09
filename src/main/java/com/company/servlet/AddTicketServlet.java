@@ -38,7 +38,7 @@ public class AddTicketServlet extends HttpServlet {
     }
 
     private Ticket createTicket(HttpServletRequest request) throws ParseException {
-        return new Ticket(request.getParameter("time") , conversionFromString.stringToDate(request.getParameter("date")) , getRoute(request)  , false , genTravelNum());
+        return new Ticket(request.getParameter("time") , conversionFromString.stringToDate(request.getParameter("date")) , getRoute(request) , genTravelNum());
     }
 
     private Long genTravelNum(){

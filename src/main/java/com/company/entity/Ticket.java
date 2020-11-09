@@ -21,17 +21,14 @@ public class Ticket {
     private Passanger passanger;
     @ManyToOne(fetch = FetchType.LAZY)
     private Route route;
-    @Column(name = "is_sold" , nullable = false , updatable = false)
-    private Boolean isSold;
 
     public Ticket() {
     }
 
-    public Ticket(String time, Date date, Route route, Boolean isSold , Long travelNumber) {
+    public Ticket(String time, Date date, Route route, Long travelNumber) {
         this.time = time;
         this.date = date;
         this.route = route;
-        this.isSold = isSold;
         this.travelNumber = travelNumber;
     }
 
@@ -65,10 +62,6 @@ public class Ticket {
         return travelNumber;
     }
 
-    public void setTravelNumber(Long travelNumber) {
-        this.travelNumber = travelNumber;
-    }
-
     public Passanger getPassanger() {
         return passanger;
     }
@@ -79,17 +72,5 @@ public class Ticket {
 
     public Route getRoute() {
         return route;
-    }
-
-    public void setRoute(Route route) {
-        this.route = route;
-    }
-
-    public Boolean getSold() {
-        return isSold;
-    }
-
-    public void setSold(Boolean sold) {
-        isSold = sold;
     }
 }
