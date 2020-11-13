@@ -19,7 +19,7 @@ public class Passanger {
     private String salt;
     @Column(nullable = false , updatable = false)
     private String gender;
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "passanger")
     private List<Ticket> tickets;
     @OneToOne(fetch = FetchType.LAZY)
     private PassangerAuthToken token;

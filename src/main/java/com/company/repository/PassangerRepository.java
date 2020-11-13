@@ -12,7 +12,7 @@ public interface PassangerRepository<E> {
 
     List<Ticket> retrievePassangerTickets(E e);
 
-    void cancelTicket(String username , Long id);
+    void cancelTicket(Long id);
 
     void buyTicket(String username , Long id);
 
