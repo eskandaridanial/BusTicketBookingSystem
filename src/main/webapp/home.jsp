@@ -28,7 +28,7 @@
                         <a class="nav-link" href="your_ticket_list">My Tickets</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ticket_list.html">Available Tickets</a>
+                        <a class="nav-link" href="ticket_page.html">Available Tickets</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled" href="logout">Logout</a>

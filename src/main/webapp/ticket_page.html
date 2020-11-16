@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            margin: auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+        table {
+            margin: auto;
+        }
+        input {
+            padding: 5px;
+            margin: 20px;
+        }
+        button {
+            background-color: slategray;
+            color: white;
+            width: 70px;
+            height: 35px;
+            border: 0;
+        }
+        th {
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input placeholder="from" name="from" type="text" id="from">
+        <input placeholder="to" name="to" type="text" id="to">
+        Tickets After : <input placeholder="date" name="date" type="date" id="date">
+        <button id="button">Search</button>
+
+        <hr>
+
+        <table>
+            <thead>
+            <tr>
+                <th>TAVEL NUMBER</th>
+                <th>FROM</th>
+                <th>TO</th>
+                <th>DATE</th>
+                <th>TIME</th>
+                <th>CHOOSE</th>
+            </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var tickets = [];
+
+            $("#button").click(function (){
+                var from = $("#from").val()
+                var to = $("#to").val()
+                var date =$("#date").val()
+
+                $.ajax({
+                    url: 'ticket_page',
+                    type: 'GET',
+                    data: {from , to , date},
+
+                    success: function (response) {
+                        $("#tbody").empty()
+                        newresp = JSON.parse(JSON.stringify(response))
+                        tickets = newresp
+                        populateTable(tickets)
+                    }
+                })
+            })
+
+            function populateTable(data){
+                var table = document.getElementById("tbody")
+
+                for(var i = 0 ; i < data.length ; i++){
+                    var row = `<tr>
+                                    <td>${data[i].travel_number}</td>
+                                    <td>${data[i].from}</td>
+                                    <td>${data[i].to}</td>
+                                    <td>${data[i].date}</td>
+                                    <td>${data[i].time}</td>
+                                    <td>
+                                        <form method="post" action="buy_ticket">
+                                            <input type="hidden" name="ticket_id" value="${data[i].id}">
+                                            <button type="submit">Book</button>
+                                        </form>
+                                    </td>
+                                </tr>`
+
+                    table.innerHTML += row
+                }
+            }
+        })
+    </script>
+</body>
+</html>
